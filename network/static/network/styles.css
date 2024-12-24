@@ -1,0 +1,84 @@
+*{
+    background-color: azure;
+}
+
+.centeritem{
+    display:grid;
+    justify-content: center;
+}
+
+.middleitem{
+    border: none;
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+    width: 70%;
+    margin-bottom: 20vh;
+}
+
+.newpost{
+    display: grid;
+    justify-content: baseline;
+}
+
+.allpost{
+    display: block;
+}
+
+textarea{
+    display: block;
+    width: 100%;
+    margin: 10px 0px;
+    resize: none;
+    border: none;
+    border-bottom: 1px solid black;
+    white-space: pre-wrap;
+    overflow: hidden;
+}
+
+textarea:focus{
+    outline: none;
+}
+
+.postitem{
+    display: block;
+}
+
+a{
+    color: black;
+}
+
+a:hover{
+    color: gray;
+}
+
+a:focus{
+    color: black;
+}
+
+.form-control:focus{
+    box-shadow: none;
+    outline: none;
+}
+
+.btn{
+    color: black;
+}
+
+.btn-link{
+    color: black;
+}
+
+.blackheart{
+    color: black;
+}
+
+.redheart{
+    color: red;
+}
+
+.sidecolumn{
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    align-items: center;
+}

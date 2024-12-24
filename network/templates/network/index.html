@@ -1,0 +1,70 @@
+{% extends "network/layout.html" %}
+{% load static %}
+{% block body %}
+<div class="container">
+    <div class="row justify-content-md-center wholecontainer">
+        <div class="mx-3 p-2 middleitem">
+            
+            {% if user.is_authenticated %}
+                <div class="newpost">
+                    <h3>New Post</h3>
+                    <div class="my-1">
+                        <form action="{% url 'newpost' %}" method="post" id="newpost-form" autocomplete="off">
+                            {% csrf_token %}
+                            <textarea class="my-0" name="newpost" id="newpost" rows="1" placeholder="what's happening..."></textarea>
+                            <input disabled type="submit" value="Post" class="btn btn-link" id="newpostsubmitbutton">
+                        </form>
+                    </div>
+                </div>
+                <hr class="my-0">
+            {% endif %}
+            <div class="allpost">
+            {% for post in page_obj %}
+                <div class="row postitem p-2 mx-1">
+                    <h5 class="my-0">
+                        <a href="{% url 'viewuser' user_id=post.poster.id %}">{{ post.poster }}</a>
+                        &middot;
+                        <small id="like-count-{{post.id}}">{{ post.likes.all.count }}</small>
+                        {% if user.is_authenticated %}
+                            {% if user in post.likes.all %}
+                                <button class="btn btn-link p-0" id="like-{{post.id}}" onclick="togglelike('{{user.id}}','{{post.id}}')" style="color: orange;">nolike</button>
+                            {% else %}
+                                <button class="btn btn-link p-0" id="like-{{post.id}}" onclick="togglelike('{{user.id}}','{{post.id}}')" style="color: red;">like</button>
+                            {% endif %}
+                            {% if user == post.poster %}
+                                &middot;
+                                <button class="btn btn-link p-0" onclick="editpost('{{post.id}}')" id="edit-button-{{post.id}}" style="color: lightseagreen;">edit</button>
+                            {% endif %}
+                        {% endif %}
+                    </h5>
+                    <p class="text-muted m-0 p-0" style="font-size: 12px;">{{ post.timestamp }}</p> 
+                    <div class="my-1" id="contentdiv-{{post.id}}">
+                        <p class="my-0" id="content-{{post.id}}">{{ post.content }}</p>
+                    </div>
+                </div>
+                <hr class="my-1">
+            {% endfor %}
+            </div>
+                
+            <div class="row pagination justify-content-md-center mx-2">
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}">&leftarrow; Previous</a>
+                    {% endif %}
+
+                    {% if page_obj.has_previous and page_obj.has_next %}
+                    <small class="mx-2">&verbar;</small>
+                    {% endif %}
+                    
+                    {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">Next &rightarrow;</a>
+                    {% endif %}    
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'network/logic.js' %}"></script>
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+
+    
+
+    <div class="container">
+        <div class="row justify-content-md-center wholecontainer"> 
+            <div class="mx-3 p-2 middleitem">
+                <h2>Login</h2>
+
+                {% if message %}
+                    <div class="my-1" style="color: red;">{{ message }}</div>
+                {% endif %}
+
+                <form action="{% url 'login' %}" method="post" autocomplete="off">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input autofocus class="form-control" type="text" name="username" placeholder="Username">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="password" name="password" placeholder="Password">
+                    </div>
+                    <input class="btn btn-link p-0" type="submit" value="Login">
+                </form>
+
+                <div class="my-2">
+                    <h6 class="my-0">Don't have an account? </h6>
+                    <a class="my-0" href="{% url 'register' %}" style="font-size: 20px;">Create account</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+
+{% endblock %}
